@@ -54,11 +54,21 @@ provider "aws" {
   region     = var.region
 }
 
-
 locals {
   servers = {
-    
+    server-iis = {
+      server_os              = "windows_2019"
+      identity               = "$var.identity-windows"
+      subnet_id              = var.subnet_id
+      vpc_security_group_ids = var.vpc_security_group_ids
+    },
     server-apache = {
+      server_os              = "ubuntu_20_04"
+      identity               = "$var.identity-ubuntu"
+      subnet_id              = var.subnet_id
+      vpc_security_group_ids = var.vpc_security_group_ids
+    },
+    server-nginx = {
       server_os              = "ubuntu_20_04"
       identity               = "$var.identity-ubuntu"
       subnet_id              = var.subnet_id
@@ -66,6 +76,7 @@ locals {
     }
   }
 }
+
 data "terraform_remote_state" "ssh-keys" {
   backend = "remote"
 
