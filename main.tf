@@ -91,7 +91,7 @@ data "terraform_remote_state" "ssh-keys" {
 }
 module "server" {
   source  = "app.terraform.io/example-org-1a3aa2/server/aws"
-  version = "0.0.2"
+  version = "0.0.3"
   for_each               = local.servers
   server_os              = each.value.server_os
   identity               = each.value.identity
