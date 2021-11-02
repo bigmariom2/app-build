@@ -71,7 +71,7 @@ data "terraform_remote_state" "ssh-keys" {
 
   config = {
     hostname = "app.terraform.io"
-    organization = "example-org-5a4eda"
+    organization = "example-org-1a3aa2"
 
     workspaces = {
       name = "ssh-keys"
