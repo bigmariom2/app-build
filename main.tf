@@ -66,7 +66,18 @@ locals {
     }
   }
 }
+data "terraform_remote_state" "ssh-keys" {
+  backend = "remote"
 
+  config = {
+    hostname = "app.terraform.io"
+    organization = "example-org-5a4eda"
+
+    workspaces = {
+      name = "ssh-keys"
+    }
+  }
+}
 module "server" {
   source  = "app.terraform.io/example-org-1a3aa2/server/aws"
   version = "0.0.2"
@@ -75,6 +86,7 @@ module "server" {
   identity               = each.value.identity
   subnet_id              = each.value.subnet_id
   vpc_security_group_ids = each.value.vpc_security_group_ids
+  key_name               = data.terraform_remote_state.ssh-keys.outputs.key_name
 }
 
 
